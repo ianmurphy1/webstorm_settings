@@ -88,4 +88,13 @@
       <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
+  <template name="rmnodeutest" value="var expect = require('chai').expect;&#10;var nodePersistence = require('node-persistence');&#10;var parameterisedQuery = nodePersistence.parameterisedQuery;&#10;&#10;var $unittest$ = require('../routes/utils/$unittest$');&#10;&#10;describe('unit $unittest$', function() {&#10;  var connstring = require('./testdb')('testagency');&#10;  &#10;  before(function (done) {});&#10;  after(function (done) {});&#10;  &#10;});" description="Template for creating a new util test" toReformat="false" toShortenFQNames="true">
+    <variable name="unittest" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="JS_EXPRESSION" value="true" />
+      <option name="JSX_HTML" value="true" />
+      <option name="JS_STATEMENT" value="true" />
+    </context>
+  </template>
 </templateSet>
