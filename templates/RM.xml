@@ -97,8 +97,19 @@
       <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
-  <template name="rmnodehtest" value="var expect = require('chai').expect,&#10;  mockery  = require('mockery'),&#10;  sinon    = require('sinon');&#10;&#10;var Res = require('./helpers/res');&#10;&#10;var $handler$ = require('../routes/handlers/$handler$');&#10;&#10;describe('unit handler.$handler$', function() {&#10;  $END$&#10;  var handler;&#10;  before(function(done) {&#10;    // stub out the handler methods&#10;    sandbox = sinon.sandbox.create();&#10;    var $handler$ = sandbox.stub();&#10;&#10;    $handler$.withArgs().returns(Promise.resolve({&#10;    }));&#10;&#10;    $handler$.withArgs().returns(Promise.reject({&#10;    }));&#10;&#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handler$');&#10;    mockery.registerMock('../utils/$handler$', $handler$);&#10;    done();&#10;  });&#10;&#10;  after(function(done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;});" description="Template for handler test" toReformat="false" toShortenFQNames="true">
+  <template name="rmnodehtest" value="var expect = require('chai').expect,&#10;  mockery  = require('mockery'),&#10;  sinon    = require('sinon'),&#10;  error    = require('rmpay-errors');&#10;&#10;var Res = require('./helpers/res');&#10;&#10;var handler = require('../routes/handlers/$handler$');&#10;&#10;describe('unit handler.$handler$', function() {&#10;  $END$&#10;  var sandbox;&#10;  var failStatus = error('unknown').status;&#10;  var successStatus = 200;&#10;  &#10;  before(function(done) {&#10;    // stub out the handler methods&#10;    sandbox = sinon.sandbox.create();&#10;    var $handler$ = sandbox.stub();&#10;&#10;    $handler$.withArgs().returns(Promise.resolve({&#10;    }));&#10;&#10;    $handler$.withArgs().returns(Promise.reject(&#10;      error('unknown')&#10;    ));&#10;&#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handler$');&#10;    mockery.registerMock('../utils/$handler$', $handler$);&#10;    done();&#10;  });&#10;&#10;  after(function(done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;});" description="Template for handler test" toReformat="false" toShortenFQNames="true">
     <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="JS_EXPRESSION" value="true" />
+      <option name="JSX_HTML" value="true" />
+      <option name="JS_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="rmhit" value="it('should provide a $text$ can be retrieved', function(done) {&#10;    var req = {&#10;      $property$: $END$,&#10;      db: db&#10;    };&#10;&#10;    var res = new Res(done);&#10;    res.expectations = function(status, json) {&#10;      expect(status).to.eql($code$);&#10;      expect(json).to.exist;&#10;    };&#10;    handler(req, res);&#10;  });" description="Template for unit test" toReformat="false" toShortenFQNames="true">
+    <variable name="text" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="code" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="property" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
       <option name="JS_EXPRESSION" value="true" />
