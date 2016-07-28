@@ -52,4 +52,7 @@
     <enable-developer-mode value="false" />
     <show-plugin-conflict-dialog value="false" />
   </component>
+  <component name="NodeJsLocalInterpreters">
+    <local-interpreter path="/usr/bin/node" />
+  </component>
 </application>
