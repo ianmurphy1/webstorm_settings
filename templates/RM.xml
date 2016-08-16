@@ -4,9 +4,6 @@
     <variable name="injections" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmser" value="function $servicename$($injections$) {&#10;  'ngInject';&#10;&#10;  const service = {};&#10;  &#10;  $END$&#10;  &#10;  &#10;  return service;&#10;  &#10;}&#10;&#10;export default {&#10;  name: '$servicename$',&#10;  fn: $servicename$&#10;};" description="Service Template" toReformat="false" toShortenFQNames="true">
@@ -14,17 +11,11 @@
     <variable name="injections" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="conl" value="console.log($END$);" description="Consolel log" toReformat="false" toShortenFQNames="true">
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmnodehand" value="var logger = require('rmpay-logging').logger(module);&#10;&#10;var Handler = function() {&#10;  var handle = function(req, res) {&#10;    var $handlerName$ = require('../utils/$handlerName$');&#10;     //logger.info(&quot;&quot;, TODO);&#10;    $handlerName$($parameter$)&#10;    .then(function($sentback$) {&#10;       //logger.info(&quot;&quot;, $sentback$);&#10;       //enter correct success code for operation&#10;      res.status($successcode$).json($sentback$);&#10;    })&#10;    .catch(function(err) {&#10;      //logger.error(&quot;Error adding asset for agency ID:&quot;, req.body.agencyId);&#10;      //logger.error(err);&#10;      res.status(400).json({&#10;        success: false,&#10;        message: err.message&#10;      });&#10;    });&#10;  };&#10;  return handle;&#10;}();&#10;&#10;module.exports = Handler;" description="Template for create a methid handler" toReformat="false" toShortenFQNames="true">
@@ -34,9 +25,6 @@
     <variable name="successcode" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmnodeutil" value="var createError = require('http-errors');&#10;&#10;var nodePersistence = require('node-persistence');&#10;var parameterisedQuery = nodePersistence.parameterisedQuery;&#10;var logger = require('rmpay-logging').logger(module);&#10;&#10;module.exports = function($passedin$) {&#10;  return new Promise(function(resolve, reject) {&#10;    var queryString = require('../impl/db').$query$;&#10;    var db = nodePersistence.DEFAULT_CONNECTION;&#10;    var queryParams = [$queries$];&#10;    logger.info('$opinfo$', queryParams);&#10;&#10;    parameterisedQuery(db, queryString, queryParams, function(err, result) {&#10;      if (err) {&#10;        logger.error(err.message);&#10;        reject(createError(400, err.message));&#10;      } else {&#10;        var $suitableobj$ = result.rows[0];&#10;        logger.info('$opsuccess$', $suitableobj$);&#10;        resolve($suitableobj$);&#10;      }&#10;    });&#10;  });&#10;&#10;};" description="Template for creating a util in node service" toReformat="false" toShortenFQNames="true">
@@ -48,9 +36,6 @@
     <variable name="opsuccess" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmroutepost" value="$routeName$.route('$routeUrl$')&#10;  .post(function(req, res) {&#10;    $handlerFunction$(req, res);&#10;  });" description="Template for creating a route in express" toReformat="false" toShortenFQNames="true">
@@ -59,9 +44,6 @@
     <variable name="handlerFunction" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmnhandlertest" value="var expect = require('chai').expect,&#10;  sinon = require('sinon'),&#10;  mockery = require('mockery'),&#10;  handler = require('../routes/handlers/$handlername$');&#10;&#10;describe('unit $handlername$ Handler', function() {&#10;  var goodBody = {&#10;    $goodbody$&#10;  };&#10;  &#10;  var badBody = {&#10;    $badbody$&#10;  };&#10;  &#10;  var sandbox;&#10;  before(function(done) {&#10;    sandbox = sinon.sandbox.create();&#10;    var $handlername$ = sandbox.stub();&#10;    &#10;    $handlername$.withArgs(goodBody).returns(Promise.resolve({}));&#10;    $handlername$.withArgs(badBody).returns(Promise.reject('oops'));&#10;    &#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handlername$');&#10;    mockery.registerMock('../utils/$handlername$', $handlername$);&#10;    done();&#10;  });&#10;  &#10;  after(function (done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;});" description="Template for setting up a unit test on a handler" toReformat="false" toShortenFQNames="true">
@@ -70,9 +52,6 @@
     <variable name="badbody" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmerr" value="&quot;$error_name$&quot;: {&#10;  &quot;status&quot;: $status$,&#10;  &quot;message&quot; $message$,&#10;  &quot;description&quot;: $description$&#10;}$END$ " description="Object for creating new error" toReformat="false" toShortenFQNames="true">
@@ -83,27 +62,18 @@
     <context>
       <option name="JSON" value="true" />
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmnodeutest" value="var expect = require('chai').expect;&#10;var nodePersistence = require('node-persistence');&#10;var parameterisedQuery = nodePersistence.parameterisedQuery;&#10;&#10;var $unittest$ = require('../routes/utils/$unittest$');&#10;&#10;describe('unit $unittest$', function() {&#10;  var connstring = require('./testdb')('testagency');&#10;  &#10;  before(function (done) {});&#10;  after(function (done) {});&#10;  &#10;});" description="Template for creating a new util test" toReformat="false" toShortenFQNames="true">
     <variable name="unittest" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmnodehtest" value="var expect = require('chai').expect,&#10;  mockery  = require('mockery'),&#10;  sinon    = require('sinon'),&#10;  error    = require('rmpay-errors');&#10;&#10;var Res = require('./helpers/res');&#10;&#10;var handler = require('../routes/handlers/$handler$');&#10;&#10;describe('unit handler.$handler$', function() {&#10;  $END$&#10;  var sandbox;&#10;  var failStatus = error('unknown').status;&#10;  var successStatus = 200;&#10;  &#10;  before(function(done) {&#10;    // stub out the handler methods&#10;    sandbox = sinon.sandbox.create();&#10;    var $handler$ = sandbox.stub();&#10;&#10;    $handler$.withArgs().returns(Promise.resolve({&#10;    }));&#10;&#10;    $handler$.withArgs().returns(Promise.reject(&#10;      error('unknown')&#10;    ));&#10;&#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handler$');&#10;    mockery.registerMock('../utils/$handler$', $handler$);&#10;    done();&#10;  });&#10;&#10;  after(function(done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;});" description="Template for handler test" toReformat="false" toShortenFQNames="true">
     <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
   <template name="rmhit" value="it('should provide a $text$ can be retrieved', function(done) {&#10;    var req = {&#10;      $property$: $END$,&#10;      db: db&#10;    };&#10;&#10;    var res = new Res(done);&#10;    res.expectations = function(status, json) {&#10;      expect(status).to.eql($code$);&#10;      expect(json).to.exist;&#10;    };&#10;    handler(req, res);&#10;  });" description="Template for unit test" toReformat="false" toShortenFQNames="true">
@@ -112,9 +82,6 @@
     <variable name="property" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
-      <option name="JS_EXPRESSION" value="true" />
-      <option name="JSX_HTML" value="true" />
-      <option name="JS_STATEMENT" value="true" />
     </context>
   </template>
 </templateSet>
