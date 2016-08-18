@@ -84,7 +84,7 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="rm-val" value="validator.checkValidity($formObj$, schema)&#10;  .then(function (validated) {&#10;    $END$&#10;  })&#10;  .catch(function (err) {&#10;    cb(err);&#10;  });" description="Template for creating the validator" toReformat="false" toShortenFQNames="true">
+  <template name="rmval" value="validator.checkValidity($formObj$, schema)&#10;  .then(function (validated) {&#10;    $END$&#10;  })&#10;  .catch(function (err) {&#10;    cb(err);&#10;  });" description="Template for creating the validator" toReformat="false" toShortenFQNames="true">
     <variable name="formObj" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
