@@ -27,13 +27,11 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="rmnodeutil" value="var createError = require('http-errors');&#10;&#10;var nodePersistence = require('node-persistence');&#10;var parameterisedQuery = nodePersistence.parameterisedQuery;&#10;var logger = require('rmpay-logging').logger(module);&#10;&#10;module.exports = function($passedin$) {&#10;  return new Promise(function(resolve, reject) {&#10;    var queryString = require('../impl/db').$query$;&#10;    var db = nodePersistence.DEFAULT_CONNECTION;&#10;    var queryParams = [$queries$];&#10;    logger.info('$opinfo$', queryParams);&#10;&#10;    parameterisedQuery(db, queryString, queryParams, function(err, result) {&#10;      if (err) {&#10;        logger.error(err.message);&#10;        reject(createError(400, err.message));&#10;      } else {&#10;        var $suitableobj$ = result.rows[0];&#10;        logger.info('$opsuccess$', $suitableobj$);&#10;        resolve($suitableobj$);&#10;      }&#10;    });&#10;  });&#10;&#10;};" description="Template for creating a util in node service" toReformat="false" toShortenFQNames="true">
-    <variable name="passedin" expression="" defaultValue="" alwaysStopAt="true" />
+  <template name="util" value="'use strict';&#10;/**&#10; * @class $className$&#10; */&#10;var logger = require('rmpay-logging').logger(module);&#10;var svcutils = require('node-rmpay-svcutils');&#10;var Promise = require('bluebird');&#10;&#10;/**&#10; *&#10; * Function to &#10; *&#10; * @method $className$&#10; * @param {String} db The string for connecting to necessary db&#10; * @param {Function} cb The callback used when operation completes&#10; *&#10; */&#10;module.exports = function(db, cb) {&#10;  var queryString = require('../impl/db/').$query$;&#10;  logger.info('$before_msg$');&#10;  var dbInteraction = Promise.promisify(svcutils.simpleDbInteraction);&#10;  dbInteraction(db, queryString)&#10;    .then(function (result) {&#10;      logger.info('$end_msg$', result.rows[0].id);&#10;      cb(null, result.rows[0]);&#10;    })&#10;    .catch(function (err) {&#10;      var dbErrorHandler = Promise.promisify(svcutils.dbErrorHandler);&#10;      return dbErrorHandler(err, cb);&#10;    });&#10;};" description="Template for creating a util in node service" toReformat="false" toShortenFQNames="true">
+    <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="query" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="queries" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="opinfo" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="suitableobj" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="opsuccess" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="before_msg" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="end_msg" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
     </context>
@@ -64,18 +62,6 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="rmnodeutest" value="var expect = require('chai').expect;&#10;var nodePersistence = require('node-persistence');&#10;var parameterisedQuery = nodePersistence.parameterisedQuery;&#10;&#10;var $unittest$ = require('../routes/utils/$unittest$');&#10;&#10;describe('unit $unittest$', function() {&#10;  var connstring = require('./testdb')('testagency');&#10;  &#10;  before(function (done) {});&#10;  after(function (done) {});&#10;  &#10;});" description="Template for creating a new util test" toReformat="false" toShortenFQNames="true">
-    <variable name="unittest" expression="" defaultValue="" alwaysStopAt="true" />
-    <context>
-      <option name="JAVA_SCRIPT" value="true" />
-    </context>
-  </template>
-  <template name="rmnodehtest" value="var expect = require('chai').expect,&#10;  mockery  = require('mockery'),&#10;  sinon    = require('sinon'),&#10;  error    = require('rmpay-errors');&#10;&#10;var Res = require('./helpers/res');&#10;&#10;var handler = require('../routes/handlers/$handler$');&#10;&#10;describe('unit handler.$handler$', function() {&#10;  $END$&#10;  var sandbox;&#10;  var failStatus = error('unknown').status;&#10;  var successStatus = 200;&#10;  &#10;  before(function(done) {&#10;    // stub out the handler methods&#10;    sandbox = sinon.sandbox.create();&#10;    var $handler$ = sandbox.stub();&#10;&#10;    $handler$.withArgs().returns(Promise.resolve({&#10;    }));&#10;&#10;    $handler$.withArgs().returns(Promise.reject(&#10;      error('unknown')&#10;    ));&#10;&#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handler$');&#10;    mockery.registerMock('../utils/$handler$', $handler$);&#10;    done();&#10;  });&#10;&#10;  after(function(done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;});" description="Template for handler test" toReformat="false" toShortenFQNames="true">
-    <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
-    <context>
-      <option name="JAVA_SCRIPT" value="true" />
-    </context>
-  </template>
   <template name="rmhit" value="it('should provide a $text$ can be retrieved', function(done) {&#10;    var req = {&#10;      $property$: $END$,&#10;      db: db&#10;    };&#10;&#10;    var res = new Res(done);&#10;    res.expectations = function(status, json) {&#10;      expect(status).to.eql($code$);&#10;      expect(json).to.exist;&#10;    };&#10;    handler(req, res);&#10;  });" description="Template for unit test" toReformat="false" toShortenFQNames="true">
     <variable name="text" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="code" expression="" defaultValue="" alwaysStopAt="true" />
@@ -91,6 +77,34 @@
     </context>
   </template>
   <template name="rmreq" value="require('$END$');" description="Require template" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="utiltest" value="'use strict';&#10;&#10;var expect = require('chai').expect;&#10;var Promise = require('bluebird'),&#10;    testHelpers = require('node-rmpay-testhelpers');&#10;var $testing$ = Promise.promisify(require('../routes/utils/$testing$')),&#10;    seedDb = Promise.promisify(testHelpers.seed),&#10;    getDb = Promise.promisify(testHelpers.getNamedDatabaseConnection);&#10;&#10;describe('unit $testing$', function() {&#10;  var connString,&#10;    agency = 'testagency';&#10;  &#10;  before(function (done) {&#10;    getDb(agency)&#10;      .then(function (db) {&#10;        connString = db;&#10;        done();&#10;      })&#10;      .catch(done);&#10;  });&#10;&#10;  after(function (done) {&#10;  });&#10;&#10;});" description="Live template for a util test" toReformat="false" toShortenFQNames="true">
+    <variable name="testing" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmseed" value="seedDb(connString, __dirname + '/seed/statements/$statementName$.sql')$END$" description="Quick seed template" toReformat="false" toShortenFQNames="true">
+    <variable name="statementName" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="itthen" value="it('$description$', function (done) {&#10;    $testing$(connString$add_params$)&#10;      .then(function ($retObj$) {&#10;        expect($retObj$).to.exist;&#10;        done();&#10;      });&#10;  });" description="Template to get quick success it" toReformat="false" toShortenFQNames="true">
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="testing" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="add_params" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="retObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="iterr" value="it('$description$', function (done) {&#10;    createImportStatus($params$)&#10;      .catch(function (err) {&#10;        expect(err).to.exist;&#10;        done();&#10;      });&#10;  });" description="Template to quick error it" toReformat="false" toShortenFQNames="true">
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
     </context>
