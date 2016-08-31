@@ -93,7 +93,7 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="itthen" value="it('$description$', function (done) {&#10;    $testing$(connString$add_params$)&#10;      .then(function ($retObj$) {&#10;        expect($retObj$).to.exist;&#10;        done();&#10;      });&#10;  });" description="Template to get quick success it" toReformat="false" toShortenFQNames="true">
+  <template name="itthen" value="it('$description$', function (done) {&#10;  $testing$(connString$add_params$)&#10;    .then(function ($retObj$) {&#10;      expect($retObj$).to.exist;&#10;      done();&#10;    });&#10;});" description="Template to get quick success it" toReformat="false" toShortenFQNames="true">
     <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="testing" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="add_params" expression="" defaultValue="" alwaysStopAt="true" />
@@ -102,8 +102,9 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="iterr" value="it('$description$', function (done) {&#10;    createImportStatus($params$)&#10;      .catch(function (err) {&#10;        expect(err).to.exist;&#10;        done();&#10;      });&#10;  });" description="Template to quick error it" toReformat="false" toShortenFQNames="true">
+  <template name="iterr" value="it('$description$', function (done) {&#10;  $functionName$($params$)&#10;    .catch(function (err) {&#10;      expect(err).to.exist;&#10;      done();&#10;    });&#10;});" description="Template to quick error it" toReformat="false" toShortenFQNames="true">
     <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="functionName" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
