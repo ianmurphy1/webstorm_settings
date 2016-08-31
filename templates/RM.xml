@@ -27,11 +27,11 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="util" value="'use strict';&#10;/**&#10; * @class $className$&#10; */&#10;var logger = require('rmpay-logging').logger(module);&#10;var svcutils = require('node-rmpay-svcutils');&#10;var Promise = require('bluebird');&#10;&#10;/**&#10; *&#10; * Function to &#10; *&#10; * @method $className$&#10; * @param {String} db The string for connecting to necessary db&#10; * @param {Function} cb The callback used when operation completes&#10; *&#10; */&#10;module.exports = function(db, cb) {&#10;  var queryString = require('../impl/db/').$query$;&#10;  logger.info('$before_msg$');&#10;  var dbInteraction = Promise.promisify(svcutils.simpleDbInteraction);&#10;  dbInteraction(db, queryString)&#10;    .then(function (result) {&#10;      logger.info('$end_msg$', result.rows[0].id);&#10;      cb(null, result.rows[0]);&#10;    })&#10;    .catch(function (err) {&#10;      var dbErrorHandler = Promise.promisify(svcutils.dbErrorHandler);&#10;      return dbErrorHandler(err, cb);&#10;    });&#10;};" description="Template for creating a util in node service" toReformat="false" toShortenFQNames="true">
+  <template name="utilparams" value="'use strict';&#10;/**&#10; * @class $className$&#10; */&#10;var error = require('rmpay-errors');&#10;var svcutils = require('node-rmpay-svcutils');&#10;var logger = require('rmpay-logging').logger(module);&#10;var Promise = require('bluebird');&#10;var rmjs      = require('rmpay-jsonschema');&#10;var validator = new rmjs.Validator('$serviceName$');&#10;var schema    =     rmjs.$serviceName$.$schemaName$;&#10;&#10;/**&#10; *&#10; * Function to $functionDescription$&#10; *&#10; * @method $className$&#10; * @param {String} db The string for connecting to necessary db&#10; * @param {Object} form Object holding the params for this query&#10; * @param {Function} cb The callback used when operation completes&#10; *&#10; */&#10;module.exports = function(db, form, cb) {&#10;  validator.checkValidity(form, schema)&#10;    .then(function (validated) {&#10;      var queryString = require('../impl/db').$className$;&#10;      var queryParams = [validated.id];&#10;      logger.info('Getting route with id of: ', queryParams);&#10;      var dbInteraction = Promise.promisify(svcutils.dbInteraction);&#10;      dbInteraction(db, queryString, queryParams)&#10;        .then(function (result) {&#10;          $END$&#10;        })&#10;        .catch(function (err) {&#10;          var handleDbError = Promise.promisify(svcutils.dbErrorHandler);&#10;          return handleDbError(err, cb);&#10;        });&#10;    })&#10;    .catch(function (err) {&#10;      logger.info(err.formatted);&#10;      cb(err);&#10;    });&#10;};" description="Template for creating a util in node service" toReformat="false" toShortenFQNames="true">
     <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="query" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="before_msg" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="end_msg" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="schemaName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="functionDescription" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
     </context>
@@ -105,6 +105,13 @@
   <template name="iterr" value="it('$description$', function (done) {&#10;    createImportStatus($params$)&#10;      .catch(function (err) {&#10;        expect(err).to.exist;&#10;        done();&#10;      });&#10;  });" description="Template to quick error it" toReformat="false" toShortenFQNames="true">
     <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="utilgetif" value="if (result.rows.length &gt; 0) {&#10;  logger.info($loggerText$);&#10;  cb(null, result.rows[0]);&#10;} else {&#10;  var e = error('not_found', {resource_type: '$resourceType$'});&#10;  cb(e);&#10;}" description="Template for when find returns nothing" toReformat="false" toShortenFQNames="true">
+    <variable name="loggerText" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="resourceType" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
     </context>
