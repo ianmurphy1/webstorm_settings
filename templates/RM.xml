@@ -117,4 +117,16 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="handler" value="'use strict';&#10;/**&#10; The handler $description$&#10;&#10; @module $handler$&#10; **/&#10;var Promise = require('bluebird');&#10;&#10;/**&#10; A function that $functionDesc$&#10;&#10; @class $className$&#10; @constructor&#10; @uses $utility$&#10; @param {Object} req Request object&#10; @param {String} req.db Link to database being queried.&#10; @param {Object} res Response object&#10; @returns {Object} The returned object. For success it will return $retObj$&#10;                   otherwise it returns an error object from rmpay-errors&#10; **/&#10;var Handler = function() {&#10;  var handle = function(req, res, next) {&#10;    var $utility$ = Promise.promisify(require('../utils/$utility$'));&#10;    $utility$(req.db, req.body)&#10;    .then(function($returnObj$) {&#10;      res.status(200).json($returnObj$);&#10;    })&#10;    .catch(next);&#10;  };&#10;  return handle;&#10;}();&#10;&#10;module.exports = Handler;" description="Live template of handler" toReformat="false" toShortenFQNames="true">
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="functionDesc" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="utility" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="retObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="returnObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
