@@ -45,10 +45,9 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
-  <template name="rmnhandlertest" value="var expect = require('chai').expect,&#10;  sinon = require('sinon'),&#10;  mockery = require('mockery'),&#10;  handler = require('../routes/handlers/$handlername$');&#10;&#10;describe('unit $handlername$ Handler', function() {&#10;  var goodBody = {&#10;    $goodbody$&#10;  };&#10;  &#10;  var badBody = {&#10;    $badbody$&#10;  };&#10;  &#10;  var sandbox;&#10;  before(function(done) {&#10;    sandbox = sinon.sandbox.create();&#10;    var $handlername$ = sandbox.stub();&#10;    &#10;    $handlername$.withArgs(goodBody).returns(Promise.resolve({}));&#10;    $handlername$.withArgs(badBody).returns(Promise.reject('oops'));&#10;    &#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handlername$');&#10;    mockery.registerMock('../utils/$handlername$', $handlername$);&#10;    done();&#10;  });&#10;  &#10;  after(function (done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;});" description="Template for setting up a unit test on a handler" toReformat="false" toShortenFQNames="true">
-    <variable name="handlername" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="goodbody" expression="" defaultValue="" alwaysStopAt="true" />
-    <variable name="badbody" expression="" defaultValue="" alwaysStopAt="true" />
+  <template name="rmhandlertest" value="'use strict';&#10;&#10;var expect = require('chai').expect,&#10;  mockery  = require('mockery'),&#10;  sinon    = require('sinon'),&#10;  error = require('rmpay-errors');&#10;&#10;var Res = require('./helpers/res');&#10;&#10;var handler = require('../routes/handlers/$handler$');&#10;&#10;describe('unit handler.$handler$', function() {&#10;  var sandbox;&#10;  var db = 'DB';&#10;  var failStatus    = error('unknown').status;&#10;  var successStatus = 200;&#10;&#10;&#10;  before(function(done) {&#10;    // stub out the handler methods&#10;    sandbox = sinon.sandbox.create();&#10;    var $util$ = sandbox.stub();&#10;    &#10;    $END$&#10;&#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handler$');&#10;    mockery.registerMock('../utils/$util$', $util$);&#10;    done();&#10;  });&#10;&#10;  after(function(done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;      &#10;});" description="Template for setting up a unit test on a handler" toReformat="false" toShortenFQNames="true">
+    <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="util" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
     </context>
@@ -126,6 +125,21 @@
     <variable name="utility" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="retObj" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="returnObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="mocksetupsuccess" value="$unit$.withArgs($args$).yields(null, $succesObj$);" description="Setting up of mock in the before part of a handler test" toReformat="false" toShortenFQNames="true">
+    <variable name="unit" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="succesObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="mocksetuperr" value="$unit$.withArgs($args$).yields(error('unknown'), null);" description="Setting up of mock in the before part of a handler test, error" toReformat="false" toShortenFQNames="true">
+    <variable name="unit" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
     </context>
