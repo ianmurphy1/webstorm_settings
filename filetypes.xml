@@ -2,6 +2,7 @@
   <component name="FileTypeManager" version="17">
     <extensionMap>
       <mapping pattern="createTableFeatureSet" type="JavaScript" />
+      <mapping pattern="get_mobility_types" type="PLAIN_TEXT" />
       <mapping pattern=".donotdelete" type="PLAIN_TEXT" />
       <mapping ext="fnc" type="DBN-PSQL" />
       <mapping ext="pkb" type="DBN-PSQL" />
