@@ -144,4 +144,27 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="rmdbcobject" value="dbc.requireWithMessage(dbc.isObject($obj$), '$obj$ object must be specified');" description="Adds dbc condition line for object" toReformat="false" toShortenFQNames="true">
+    <variable name="obj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbccallback" value="dbc.requireWithMessage(dbc.isFunction(cb), 'callback function must be specified');" description="Adds in dbc condition for checking if callback function is specified" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcarray" value="dbc.requireWithMessage(dbc.isArray($arr$), '$arr$ is not a valid array');" description="Adds in dbc check for arrays" toReformat="false" toShortenFQNames="true">
+    <variable name="arr" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcargs" value="dbc.requireWithMessage(arguments.length === $args$, 'function called with incorrect number of arguments');" description="Addds in dbc check for correct number of arguments" toReformat="false" toShortenFQNames="true">
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
