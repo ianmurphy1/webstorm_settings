@@ -167,4 +167,16 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="rmdbcnumber" value="dbc.requireWithMessage(dbc.isNumber(Number($num$)), '$num$ is not a valid number');" description="Template for dbc require for a number" toReformat="false" toShortenFQNames="true">
+    <variable name="num" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcstring" value="dbc.requireWithMessage(dbc.isString($string$) &amp;&amp; $string$.length &gt; 0, '$string$ is not a valid string');" description="dbc require for a string" toReformat="false" toShortenFQNames="true">
+    <variable name="string" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
