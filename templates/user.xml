@@ -1,0 +1,7 @@
+<templateSet group="user">
+  <template name="rmloginfo" value="logger.info('$END$');" description="template for adding in logger info" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+</templateSet>
