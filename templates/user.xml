@@ -1,0 +1,5 @@
+<templateSet group="user">
+  <template name="rmdbcauth" value="dbc.requireWithMessage(dbc.isString(authorization) &amp;&amp; S(authorization).startsWith('Bearer: '), 'authorization is not a valid string');" description="Template for dbc check of auth header" toReformat="false" toShortenFQNames="true">
+    <context />
+  </template>
+</templateSet>
