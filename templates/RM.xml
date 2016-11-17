@@ -200,4 +200,10 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="rmpromisify" value="Promise.promisify(require('.$req$'));" description="Template for Promise.promisify();" toReformat="false" toShortenFQNames="true">
+    <variable name="req" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
