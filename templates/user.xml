@@ -2,4 +2,10 @@
   <template name="rmdbcauth" value="dbc.requireWithMessage(dbc.isString(authorization) &amp;&amp; S(authorization).startsWith('Bearer: '), 'authorization is not a valid string');" description="Template for dbc check of auth header" toReformat="false" toShortenFQNames="true">
     <context />
   </template>
+  <template name="conlall" value="console.log(util.inspect($obj$, false, null));" description="Template for showing whole object in console" toReformat="false" toShortenFQNames="true">
+    <variable name="obj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
