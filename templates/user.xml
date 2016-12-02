@@ -8,4 +8,10 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="rmdbcboolean" value="dbc.requireWithMessage(dbc.isBoolean($param$) || ($param$.toLowerCase() === 'true' || $param$.toLowerCase() === 'false'), '$param$ is not a valid boolean');$END$" description="Template for doing dbc check on booleans" toReformat="false" toShortenFQNames="true">
+    <variable name="param" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
