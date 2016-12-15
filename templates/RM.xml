@@ -206,4 +206,37 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="rmexternal" value="'use strict';&#10;/**&#10; * @class $className$&#10; */&#10;var Promise = require('bluebird');&#10;var util = require('util');&#10;var request = Promise.promisify(require('rmpay-net').serviceRequest);&#10;var logger = require('rmpay-logging').logger(module);&#10;var dbc = require('designbycontract');&#10;var _ = require('lodash');&#10;var rmjs      = require('rmpay-jsonschema');&#10;var validator = new rmjs.Validator('$serviceName$');&#10;var schema    =     rmjs.$serviceName$.$schemaName$;&#10;var ExternalServiceUrls = require('../../helpers/getServiceUrls');&#10;var $serviceUrls$ = new ExternalServiceUrls('$serviceConfig$');&#10;var $endpointUrl$ = $serviceUrls$.getUrl('$endpointName$');&#10;var S = require('string');&#10;&#10;&#10;/**&#10; *&#10; * Function that contacts the &#10; *&#10; * @method $className$&#10; * @uses serviceRequest&#10; * @param {String} authorization Authorization header to be used throughout request&#10; * @param {Function} cb The callback used when operation completes&#10; * @returns { | Object} Return &lt;blah blah&gt; or an rmpay-error object if something goes wrong&#10; */&#10;module.exports = function($params$, authorization, cb) {&#10;  dbc.requireWithMessage(arguments.length === $paramsLength$, 'function called with incorrect number of arguments');&#10;  $paramChecks$&#10;  dbc.requireWithMessage(dbc.isString(authorization) &amp;&amp; S(authorization).startsWith('Bearer: '), 'authorization is not a valid string');&#10;  dbc.requireWithMessage(dbc.isFunction(cb), 'callback function must be specified');&#10;&#10;  validator.checkValidity($check$, schema)&#10;    .then(function () {&#10;      $options$&#10;      return request(options);&#10;    })&#10;    .then(function ($result$) {&#10;      logger.info('$logmessage$');&#10;      cb(null, $result$);&#10;    })&#10;    .catch(cb);&#10;};" description="Template for creating an external function" toReformat="false" toShortenFQNames="true">
+    <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="schemaName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceUrls" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceConfig" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="endpointUrl" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="endpointName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="paramsLength" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="paramChecks" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="check" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="options" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="result" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logmessage" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmexternalget" value="var options = {&#10;   uri: $uri$,&#10;   method: 'GET',&#10;   headers: {&#10;      'Authorization': authorization&#10;   },&#10;   $query$,&#10;   json: true&#10;};" description="Template for external get request options" toReformat="false" toShortenFQNames="true">
+    <variable name="uri" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="query" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmexternalpost" value="var options = {&#10;   uri: $uri$,&#10;   method: 'POST',&#10;   headers: {&#10;      'Authorization': authorization&#10;   },&#10;   body: $body$,&#10;   json: true&#10;};" description="Template for external post request options" toReformat="false" toShortenFQNames="true">
+    <variable name="uri" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="body" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
