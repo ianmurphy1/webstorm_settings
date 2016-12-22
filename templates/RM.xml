@@ -239,4 +239,10 @@
       <option name="JAVA_SCRIPT" value="true" />
     </context>
   </template>
+  <template name="conlall" value="console.log(util.inspect($obj$, false, null));" description="Consolel log for displaying all the object" toReformat="false" toShortenFQNames="true">
+    <variable name="obj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
 </templateSet>
