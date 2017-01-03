@@ -61,8 +61,8 @@
     <variable name="message" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
-      <option name="JSON" value="true" />
       <option name="JAVA_SCRIPT" value="true" />
+      <option name="JSON" value="true" />
     </context>
   </template>
   <template name="rmhit" value="it('should provide a $text$ can be retrieved', function(done) {&#10;    var req = {&#10;      $property$: $END$,&#10;      db: db&#10;    };&#10;&#10;    var res = new Res(done);&#10;    res.expectations = function(status, json) {&#10;      expect(status).to.eql($code$);&#10;      expect(json).to.exist;&#10;    };&#10;    handler(req, res);&#10;  });" description="Template for unit test" toReformat="false" toShortenFQNames="true">
