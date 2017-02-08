@@ -1,19 +1,20 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
-      <mapping pattern="createTableFeatureSet" type="JavaScript" />
-      <mapping pattern="get_mobility_types" type="PLAIN_TEXT" />
-      <mapping pattern=".donotdelete" type="PLAIN_TEXT" />
+      <mapping ext="tps" type="DBN-PSQL" />
+      <mapping ext="tpe" type="DBN-PSQL" />
+      <mapping ext="pks" type="DBN-PSQL" />
       <mapping ext="fnc" type="DBN-PSQL" />
       <mapping ext="pkb" type="DBN-PSQL" />
       <mapping ext="pkg" type="DBN-PSQL" />
-      <mapping ext="pks" type="DBN-PSQL" />
-      <mapping ext="prc" type="DBN-PSQL" />
       <mapping ext="tpb" type="DBN-PSQL" />
-      <mapping ext="tpe" type="DBN-PSQL" />
-      <mapping ext="tps" type="DBN-PSQL" />
+      <mapping ext="prc" type="DBN-PSQL" />
       <mapping ext="trg" type="DBN-PSQL" />
       <mapping ext="vw" type="DBN-SQL" />
+      <mapping pattern="createTableFeatureSet" type="JavaScript" />
+      <mapping pattern="get_mobility_types" type="PLAIN_TEXT" />
+      <mapping pattern="ruleValidationObject.json" type="PLAIN_TEXT" />
+      <mapping pattern=".donotdelete" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
