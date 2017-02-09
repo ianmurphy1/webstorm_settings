@@ -1,0 +1,248 @@
+<templateSet group="RM">
+  <template name="rmcon" value="function $controllername$($injections$) {&#10;&#10;  &quot;ngInject&quot;;&#10;  const vm = this; &#10;  &#10;  $END$&#10;  &#10;}&#10;&#10;export default {&#10;  name: '$controllername$',&#10;  fn: $controllername$&#10;};" description="Controller template" toReformat="false" toShortenFQNames="true">
+    <variable name="controllername" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="injections" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmser" value="function $servicename$($injections$) {&#10;  'ngInject';&#10;&#10;  const service = {};&#10;  &#10;  $END$&#10;  &#10;  &#10;  return service;&#10;  &#10;}&#10;&#10;export default {&#10;  name: '$servicename$',&#10;  fn: $servicename$&#10;};" description="Service Template" toReformat="false" toShortenFQNames="true">
+    <variable name="servicename" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="injections" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="conl" value="console.log($END$);" description="Consolel log" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmnodehand" value="var logger = require('rmpay-logging').logger(module);&#10;&#10;var Handler = function() {&#10;  var handle = function(req, res) {&#10;    var $handlerName$ = require('../utils/$handlerName$');&#10;     //logger.info(&quot;&quot;, TODO);&#10;    $handlerName$($parameter$)&#10;    .then(function($sentback$) {&#10;       //logger.info(&quot;&quot;, $sentback$);&#10;       //enter correct success code for operation&#10;      res.status($successcode$).json($sentback$);&#10;    })&#10;    .catch(function(err) {&#10;      //logger.error(&quot;Error adding asset for agency ID:&quot;, req.body.agencyId);&#10;      //logger.error(err);&#10;      res.status(400).json({&#10;        success: false,&#10;        message: err.message&#10;      });&#10;    });&#10;  };&#10;  return handle;&#10;}();&#10;&#10;module.exports = Handler;" description="Template for create a methid handler" toReformat="false" toShortenFQNames="true">
+    <variable name="handlerName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="parameter" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="sentback" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="successcode" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="utilparams" value="'use strict';&#10;/**&#10; * @class $className$&#10; */&#10;var error = require('rmpay-errors');&#10;var svcutils = require('node-rmpay-svcutils');&#10;var logger = require('rmpay-logging').logger(module);&#10;var Promise = require('bluebird');&#10;var rmjs      = require('rmpay-jsonschema');&#10;var validator = new rmjs.Validator('$serviceName$');&#10;var schema    =     rmjs.$serviceName$.$schemaName$;&#10;var _ = require('lodash');&#10;var dbc = require('designbycontract');&#10;&#10;&#10;/**&#10; *&#10; * Function to $functionDescription$&#10; *&#10; * @method $className$&#10; * @param {String} db The string for connecting to necessary db&#10; * @param {Object} form Object holding the params for this query&#10; * @param {Function} cb The callback used when operation completes&#10; *&#10; */&#10;module.exports = function(db, $args$, cb) {&#10;  dbc.requireWithMessage(arguments.length === $argsCount$, 'function called with incorrect number of arguments');&#10;  $dbcChecks$&#10;  dbc.requireWithMessage(dbc.isFunction(cb), 'callback function must be provided');&#10;  &#10;  validator.checkValidity(form, schema)&#10;    .then(function (validated) {&#10;      var queryString = require('../impl/db').$className$;&#10;      var queryParams = [$params$];&#10;      logger.info('$$', queryParams);&#10;      var dbInteraction = Promise.promisify(svcutils.dbInteraction);&#10;      dbInteraction(db, queryString, queryParams)&#10;        .then(function (result) {&#10;          $END$&#10;        })&#10;        .catch(function (err) {&#10;          var handleDbError = svcutils.dbErrorHandler;&#10;          return handleDbError(err, cb);&#10;        });&#10;    })&#10;    .catch(cb);&#10;};" description="Template for creating a util in node service" toReformat="false" toShortenFQNames="true">
+    <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="schemaName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="functionDescription" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="argsCount" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="dbcChecks" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmroutepost" value="$routeName$.route('$routeUrl$')&#10;  .post(function(req, res) {&#10;    $handlerFunction$(req, res);&#10;  });" description="Template for creating a route in express" toReformat="false" toShortenFQNames="true">
+    <variable name="routeName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="routeUrl" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="handlerFunction" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmhandlertest" value="'use strict';&#10;&#10;var expect = require('chai').expect,&#10;  mockery  = require('mockery'),&#10;  sinon    = require('sinon'),&#10;  error = require('rmpay-errors');&#10;&#10;var Res = require('./helpers/res');&#10;&#10;var handler = require('../routes/handlers/$handler$');&#10;&#10;describe('unit handler.$handler$', function() {&#10;  var sandbox;&#10;  var db = 'DB';&#10;  var failStatus    = error('unknown').status;&#10;  var successStatus = 200;&#10;&#10;&#10;  before(function(done) {&#10;    // stub out the handler methods&#10;    sandbox = sinon.sandbox.create();&#10;    var $util$ = sandbox.stub();&#10;    &#10;    $END$&#10;&#10;    mockery.enable();&#10;    mockery.registerAllowable('../routes/handlers/$handler$');&#10;    mockery.registerMock('../utils/$util$', $util$);&#10;    done();&#10;  });&#10;&#10;  after(function(done) {&#10;    mockery.deregisterAll();&#10;    mockery.disable();&#10;    sandbox.restore();&#10;    done();&#10;  });&#10;      &#10;});" description="Template for setting up a unit test on a handler" toReformat="false" toShortenFQNames="true">
+    <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="util" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmerr" value="&quot;$error_name$&quot;: {&#10;  &quot;status&quot;: $status$,&#10;  &quot;message&quot; $message$,&#10;  &quot;description&quot;: $description$&#10;}$END$ " description="Object for creating new error" toReformat="false" toShortenFQNames="true">
+    <variable name="error_name" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="status" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="message" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="JSON" value="true" />
+    </context>
+  </template>
+  <template name="rmhit" value="it('should provide a $text$ can be retrieved', function(done) {&#10;    var req = {&#10;      $property$: $END$,&#10;      db: db&#10;    };&#10;&#10;    var res = new Res(done);&#10;    res.expectations = function(status, json) {&#10;      expect(status).to.eql($code$);&#10;      expect(json).to.exist;&#10;    };&#10;    handler(req, res);&#10;  });" description="Template for unit test" toReformat="false" toShortenFQNames="true">
+    <variable name="text" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="code" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="property" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmval" value="validator.checkValidity($formObj$, schema)&#10;  .then(function (validated) {&#10;    $END$&#10;  })&#10;  .catch(function (err) {&#10;    cb(err);&#10;  });" description="Template for creating the validator" toReformat="false" toShortenFQNames="true">
+    <variable name="formObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmreq" value="require('$END$');" description="Require template" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="utiltest" value="'use strict';&#10;&#10;var expect = require('chai').expect;&#10;var Promise = require('bluebird'),&#10;    testHelpers = require('node-rmpay-testhelpers');&#10;var $testing$ = Promise.promisify(require('../routes/utils/$testing$')),&#10;    seedDb = Promise.promisify(testHelpers.seed),&#10;    getDb = Promise.promisify(testHelpers.getNamedDatabaseConnection);&#10;&#10;describe('unit $testing$', function() {&#10;  var connString,&#10;    agency = 'testagency';&#10;  &#10;  before(function (done) {&#10;    getDb(agency)&#10;      .then(function (db) {&#10;        connString = db;&#10;        done();&#10;      })&#10;      .catch(done);&#10;  });&#10;&#10;  after(function (done) {&#10;  });&#10;&#10;});" description="Live template for a util test" toReformat="false" toShortenFQNames="true">
+    <variable name="testing" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmseed" value="seedDb(connString, __dirname + '/seed/statements/$statementName$.sql')$END$" description="Quick seed template" toReformat="false" toShortenFQNames="true">
+    <variable name="statementName" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="itthen" value="it('$description$', function (done) {&#10;  $testing$(connString$add_params$)&#10;    .then(function ($retObj$) {&#10;      expect($retObj$).to.exist;&#10;      done();&#10;    });&#10;});" description="Template to get quick success it" toReformat="false" toShortenFQNames="true">
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="testing" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="add_params" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="retObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="iterr" value="it('$description$', function (done) {&#10;  $functionName$($params$)&#10;    .catch(function (err) {&#10;      expect(err).to.exist;&#10;      done();&#10;    });&#10;});" description="Template to quick error it" toReformat="false" toShortenFQNames="true">
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="functionName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="utilgetif" value="if (result.rows.length &gt; 0) {&#10;  logger.info($loggerText$);&#10;  cb(null, result.rows[0]);&#10;} else {&#10;  var e = error('not_found', {resource_type: '$resourceType$'});&#10;  cb(e);&#10;}" description="Template for when find returns nothing" toReformat="false" toShortenFQNames="true">
+    <variable name="loggerText" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="resourceType" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmhandler" value="'use strict';&#10;/**&#10; The handler $description$&#10;&#10; @module $handler$&#10; **/&#10;var Promise = require('bluebird');&#10;&#10;/**&#10; A function that $functionDesc$&#10;&#10; @class $className$&#10; @constructor&#10; @uses $utility$&#10; @param {Object} req Request object&#10; @param {String} req.db Link to database being queried.&#10; @param {Object} res Response object&#10; @returns {Object} The returned object. For success it will return $retObj$&#10;                   otherwise it returns an error object from rmpay-errors&#10; **/&#10;var Handler = function() {&#10;  var handle = function(req, res, next) {&#10;    var $utility$ = Promise.promisify(require('../utils/$utility$'));&#10;    $utility$(req.db, req.body)&#10;    .then(function($returnObj$) {&#10;      res.status(200).json($returnObj$);&#10;    })&#10;    .catch(next);&#10;  };&#10;  return handle;&#10;}();&#10;&#10;module.exports = Handler;" description="Live template of handler" toReformat="false" toShortenFQNames="true">
+    <variable name="description" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="handler" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="functionDesc" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="utility" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="retObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="returnObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="mocksetupsuccess" value="$unit$.withArgs($args$).yields(null, $succesObj$);" description="Setting up of mock in the before part of a handler test" toReformat="false" toShortenFQNames="true">
+    <variable name="unit" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="succesObj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="mocksetuperr" value="$unit$.withArgs($args$).yields(error('unknown'), null);" description="Setting up of mock in the before part of a handler test, error" toReformat="false" toShortenFQNames="true">
+    <variable name="unit" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcobject" value="dbc.requireWithMessage(dbc.isObject($obj$) &amp;&amp; !_.isEmpty($obj$), '$obj$ object must be specified');" description="Adds dbc condition line for object" toReformat="false" toShortenFQNames="true">
+    <variable name="obj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbccallback" value="dbc.requireWithMessage(dbc.isFunction(cb), 'callback function must be specified');" description="Adds in dbc condition for checking if callback function is specified" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcarray" value="dbc.requireWithMessage(dbc.isArray($arr$) &amp;&amp; !_.isEmpty($arr$), '$arr$ is not a valid array');" description="Adds in dbc check for arrays" toReformat="false" toShortenFQNames="true">
+    <variable name="arr" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcargs" value="dbc.requireWithMessage(arguments.length === $args$, 'function called with incorrect number of arguments');" description="Addds in dbc check for correct number of arguments" toReformat="false" toShortenFQNames="true">
+    <variable name="args" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcnumber" value="dbc.requireWithMessage(dbc.isNumber(Number($num$)) &amp;&amp; Number($num$) &gt; $min$, '$num$ is not a valid number');" description="Template for dbc require for a number" toReformat="false" toShortenFQNames="true">
+    <variable name="num" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="min" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcstring" value="dbc.requireWithMessage(dbc.isString($string$) &amp;&amp; $string$.length &gt; 0, '$string$ is not a valid string');" description="dbc require for a string" toReformat="false" toShortenFQNames="true">
+    <variable name="string" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmloginfo" value="logger.info('$END$');" description="template for adding in logger info" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="jsonschema" value="{&#10;  &quot;id&quot;: &quot;$id$&quot;,&#10;  &quot;type&quot;: &quot;$type$&quot;,&#10;  $END$&#10;}" description="Template for creating json schema" toReformat="false" toShortenFQNames="true">
+    <variable name="id" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="type" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JSON" value="true" />
+    </context>
+  </template>
+  <template name="rmdbcauth" value="dbc.requireWithMessage(dbc.isString(authorization) &amp;&amp; S(authorization).startsWith('Bearer: '), 'authorization is not a valid string');" description="Template for validation authorization header" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmpromisify" value="Promise.promisify(require('.$req$'));" description="Template for Promise.promisify();" toReformat="false" toShortenFQNames="true">
+    <variable name="req" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmexternal" value="'use strict';&#10;/**&#10; * @class $className$&#10; */&#10;var Promise = require('bluebird');&#10;var util = require('util');&#10;var request = Promise.promisify(require('rmpay-net').serviceRequest);&#10;var logger = require('rmpay-logging').logger(module);&#10;var dbc = require('designbycontract');&#10;var _ = require('lodash');&#10;var rmjs      = require('rmpay-jsonschema');&#10;var validator = new rmjs.Validator('$serviceName$');&#10;var schema    =     rmjs.$serviceName$.$schemaName$;&#10;var ExternalServiceUrls = require('../../helpers/getServiceUrls');&#10;var $serviceUrls$ = new ExternalServiceUrls('$serviceConfig$');&#10;var $endpointUrl$ = $serviceUrls$.getUrl('$endpointName$');&#10;var S = require('string');&#10;&#10;&#10;/**&#10; *&#10; * Function that contacts the &#10; *&#10; * @method $className$&#10; * @uses serviceRequest&#10; * @param {String} authorization Authorization header to be used throughout request&#10; * @param {Function} cb The callback used when operation completes&#10; * @returns { | Object} Return &lt;blah blah&gt; or an rmpay-error object if something goes wrong&#10; */&#10;module.exports = function($params$, authorization, cb) {&#10;  dbc.requireWithMessage(arguments.length === $paramsLength$, 'function called with incorrect number of arguments');&#10;  $paramChecks$&#10;  dbc.requireWithMessage(dbc.isString(authorization) &amp;&amp; S(authorization).startsWith('Bearer: '), 'authorization is not a valid string');&#10;  dbc.requireWithMessage(dbc.isFunction(cb), 'callback function must be specified');&#10;&#10;  validator.checkValidity($check$, schema)&#10;    .then(function () {&#10;      $options$&#10;      return request(options);&#10;    })&#10;    .then(function ($result$) {&#10;      logger.info('$logmessage$');&#10;      cb(null, $result$);&#10;    })&#10;    .catch(cb);&#10;};" description="Template for creating an external function" toReformat="false" toShortenFQNames="true">
+    <variable name="className" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="schemaName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceUrls" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="serviceConfig" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="endpointUrl" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="endpointName" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="params" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="paramsLength" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="paramChecks" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="check" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="options" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="result" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="logmessage" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmexternalget" value="var options = {&#10;   uri: $uri$,&#10;   method: 'GET',&#10;   headers: {&#10;      'Authorization': authorization&#10;   },&#10;   $query$,&#10;   json: true&#10;};" description="Template for external get request options" toReformat="false" toShortenFQNames="true">
+    <variable name="uri" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="query" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="rmexternalpost" value="var options = {&#10;   uri: $uri$,&#10;   method: 'POST',&#10;   headers: {&#10;      'Authorization': authorization&#10;   },&#10;   body: $body$,&#10;   json: true&#10;};" description="Template for external post request options" toReformat="false" toShortenFQNames="true">
+    <variable name="uri" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="body" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+  <template name="conlall" value="console.log(util.inspect($obj$, false, null));" description="Console log for displaying all the object" toReformat="false" toShortenFQNames="true">
+    <variable name="obj" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+    </context>
+  </template>
+</templateSet>
